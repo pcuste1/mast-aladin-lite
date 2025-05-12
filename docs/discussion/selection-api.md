@@ -25,6 +25,11 @@ We examined the current selection features available in **ipyaladin** and **alad
 	- ipyaladin ([PR](https://github.com/pcuste1/ipyaladin/pull/3))
 
 These proofs-of-concept work by implementing the API discussed below. We also examined footprint selection, which will require further discussion to determine the best path forward. 
+
+**Example:**
+![](ProgramaticRegionSelectionExample.mov)
+In the example above, we show the programmatic selection of a circle and polygon regions, as well as the manual selection of a rectangular region. We then export the list of selected regions from the **aladin-lite** widget, draw the regions as graphic overlays, and reselect the first region programmatically.
+
 ## 1.1. Design Principles
 #### Standard Interface Pattern
 For each feature exposed by **aladin-lite** and **ipyaladin** that we intend to support, the interface should offer the following APIs:
@@ -334,4 +339,5 @@ When performing a region selection, are footprints considered selected only if t
 **Skewer Selection:**
 We are also exploring the feasibility of a skewer selection feature. This functionality would allow users to select all footprints that intersect with a given point. Is this type of selection currently supported, or would it require new API functionality?
 ## 4.4 Future Items
-In the future, we may want to consider implementing a version of the UI that operates on individual catalogs. We may also want to implement a UI method for toggling the visibility of a catalog.
+In the future, we may want to consider implementing a version of the UI that operates on individual catalogs. We may also want to implement a UI method for toggling the visibility of a catalog. 
+
