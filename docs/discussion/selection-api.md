@@ -27,7 +27,7 @@ We examined the current selection features available in **ipyaladin** and **alad
 These proofs-of-concept work by implementing the API discussed below. We also examined footprint selection, which will require further discussion to determine the best path forward. 
 
 **Example:**
-![](ProgramaticRegionSelectionExample.mov)
+![ProgramaticRegionSelectionExample](ProgramaticRegionSelectionExample.mov)
 In the example above, we show the programmatic selection of a circle and polygon regions, as well as the manual selection of a rectangular region. We then export the list of selected regions from the **aladin-lite** widget, draw the regions as graphic overlays, and reselect the first region programmatically.
 
 ## 1.1. Design Principles
