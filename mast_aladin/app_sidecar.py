@@ -220,8 +220,6 @@ class AppSidecarManager:
             with app.sidecar:
                 solara.display(SidecarContents(apps=[app]))
 
-        opened_sidecars.append(self)
-
     def close_all(self):
         """
         Close this particular `sidecar` instance.
