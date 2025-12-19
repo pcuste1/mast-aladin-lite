@@ -1,0 +1,25 @@
+{
+    "apps": [
+        {
+            "name": "mast-aladin",
+            "type": "MastAladin"
+        },
+        {
+            "name": "imviz",
+            "type": "Imviz"
+        }
+    ],
+    "sidecars": [
+        {
+            "title": "Mast Tab",
+            "apps": ["mast-aladin"],
+            "anchor": "split-bottom"
+        },
+        {
+            "title": "Imviz Tab",
+            "apps": ["imviz"],
+            "anchor": "split-right",
+            "ref": "Mast Tab"
+        }
+    ]
+}

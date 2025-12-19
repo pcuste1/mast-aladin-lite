@@ -4,6 +4,7 @@ from ipyaladin import Aladin
 from sidecar import Sidecar as UpstreamSidecar
 from mast_table import MastTable
 from mast_aladin.app import MastAladin, gca
+from IPython.display import display
 
 try:
     from jdaviz.core.helpers import ConfigHelper
@@ -34,8 +35,48 @@ class AppSidecarManager:
 
     def __init__(self, app_manager, plugin_manager):
         self.loaded_apps = []
+        self.sidecars = {}
         self.app_manager = app_manager
         self.plugin_manager = plugin_manager
+
+    def open_single(
+        self,
+        apps=[],
+        anchor='split-bottom',
+        ref=None,
+        title='default title',
+        height=default_height,
+    ):
+        @solara.component
+        def SidecarContents(apps):
+            style = f"height={height} !important;"
+
+            with solara.Columns(len(apps) * [1], gutters_dense=True) as main:
+                for app in apps:
+
+                    if is_aladin(app):
+                        # MastAladin:
+                        with solara.Column(gap='0px', style=style):
+                            display(app)
+
+                    elif is_jdaviz(app):
+                        # jdaviz:
+                        with solara.Column(gap='0px', style=style):
+                            display(app.app)
+
+                    else:
+                        # other:
+                        with solara.Column(gap='0px'):
+                            display(app)
+
+                    set_app_height(app, height)
+
+            return main
+
+        sidecar = UpstreamSidecar(anchor=anchor, title=title, ref=self.sidecars.get(ref, None))
+        self.sidecars[title] = sidecar
+        with sidecar:
+            solara.display(SidecarContents(apps=apps))
 
     def open(
         self,
@@ -191,7 +232,7 @@ class AppSidecarManager:
             return anchor + [default_anchor] * (n_apps-n_anchors)
         return anchor
 
-    def _display_sidecar_contents(self, apps, height):
+    def _display_sidecar_contents(self, apps, sidecar, height):
         @solara.component
         def SidecarContents(apps):
             style = f"height={height} !important;"

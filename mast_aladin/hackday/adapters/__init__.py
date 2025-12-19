@@ -1,2 +1,2 @@
-from .viewer_sync import ViewerSyncPlugin
+from .viewer_sync import ViewerSync
 from .viewport_outline import ViewportOutlinePlugin

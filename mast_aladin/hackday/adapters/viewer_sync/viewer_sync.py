@@ -12,7 +12,7 @@ ADAPTERS = {
 }
 
 
-class ViewerSyncPlugin():
+class ViewerSync():
     def __init__(self, app_manager):
         self.app_manager = app_manager
         self.viewer_sync_manager = ViewerSyncManager()
@@ -80,8 +80,8 @@ class ViewerSyncPlugin():
                 if isinstance(app, app_type):
                     self._adapters[idx] = adapter_cls(app)
                     break
-                else:
-                    raise ValueError(f"Unsupported app type: {type(app)}")
+                # else:
+                #     raise ValueError(f"Unsupported app type: {type(app)}")
 
     def _refresh_dropdowns(self):
         new_options = ['', *self._adapters.keys()]

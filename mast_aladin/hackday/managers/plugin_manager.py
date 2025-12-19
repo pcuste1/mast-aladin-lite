@@ -1,10 +1,11 @@
-from mast_aladin.hackday.adapters import ViewerSyncPlugin, ViewportOutlinePlugin
+from mast_aladin.hackday.adapters import ViewerSync, ViewportOutlinePlugin
+from IPython.display import display
 
 
 class PluginManager():
     def __init__(self, app_manager):
         self._plugins = {
-            "viewer_sync": ViewerSyncPlugin(app_manager),
+            "viewer_sync": ViewerSync(app_manager),
             # "viewport_outline": ViewportOutlinePlugin(app_manager)
         }
 
