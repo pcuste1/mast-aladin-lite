@@ -33,30 +33,31 @@ def mock_s3_filesystem():
 class TestTableFromParquetS3:
     def test_table_from_parquet_s3(self, mock_s3_filesystem):
         """Test loading a parquet file from S3 using local file mock."""
+        # Arrange
         mock_filesystem, mock_fs = mock_s3_filesystem
         s3_uri = TEST_S3_URI
 
-        # Call the function
+        # Act
         result = table_from_parquet_s3(s3_uri)
 
-        # Verify it returns an astropy Table
+        # Assert
         assert isinstance(result, Table)
         assert len(result) > 0
 
-        # Verify the filesystem was called correctly
         mock_filesystem.assert_called_once_with(protocol='s3', anon=True)
         mock_fs.open.assert_called_once_with(s3_uri)
 
     def test_table_from_parquet_s3_with_kwargs(self, mock_s3_filesystem):
         """Test that kwargs are passed to astropy.Table.read."""
+        # Arrange
         mock_filesystem, mock_fs = mock_s3_filesystem
         s3_uri = TEST_S3_URI
         test_kwargs = {'include_names': ['ra', 'dec']}
 
-        # Call the function with kwargs
+        # Act
         result = table_from_parquet_s3(s3_uri, **test_kwargs)
 
-        # Verify kwargs were passed to open
+        # Assert
         assert isinstance(result, Table)
         assert result.colnames == ['ra', 'dec']
         mock_fs.open.assert_called_once_with(s3_uri)
