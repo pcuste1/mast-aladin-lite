@@ -3,16 +3,20 @@ from mast_table import MastTable
 
 from astropy.coordinates import SkyCoord
 from astropy.io import fits
+
 from regions import (
     PolygonSkyRegion
 )
 from pathlib import Path
 from astropy.wcs import WCS
 
+from mast_aladin.utils.validators import is_valid_s3_uri
 from mast_aladin.aida import AID
 from mast_aladin.mixins import DelayUntilRendered
+import mast_aladin.utils.parquet as parquet
 
 import roman_datamodels.datamodels as rdd
+
 
 __all__ = [
     'MastAladin',
@@ -69,6 +73,28 @@ class MastAladin(Aladin, DelayUntilRendered):
                 )
 
         return table_widget
+
+    def add_table(
+        self, file, **kwargs
+    ):
+        """Add a table to the widget.
+
+        Parameters
+        ----------
+        file : str
+            The file path to the table to add.
+        **kwargs : dict
+            Additional keyword arguments to pass to the underlying implementation.
+
+        """
+        if is_valid_s3_uri(file) and file.endswith('.parquet'):
+            table = parquet.table_from_s3(file)
+        else:
+            raise ValueError(
+                f"Unsupported file provided: {file}"
+            )
+
+        super().add_table(table, **kwargs)
 
     def add_asdf(
         self, asdf, **image_options

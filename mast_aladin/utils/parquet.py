@@ -2,7 +2,7 @@ import fsspec
 from astropy.table import Table
 
 
-def table_from_parquet_s3(s3_uri, **kwargs):
+def table_from_s3(s3_uri, **kwargs):
     """
     Load a parquet file from S3 and return it as an astropy Table.
 

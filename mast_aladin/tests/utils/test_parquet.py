@@ -4,9 +4,9 @@ from pathlib import Path
 import io
 from astropy.table import Table
 
-from mast_aladin.utils.parquet import table_from_parquet_s3
+import mast_aladin.utils.parquet as parquet
 
-TEST_PARQUET_PATH = Path(__file__).parent / 'r0034201001001001001_0001_wfi01_f087_cat.parquet'
+TEST_PARQUET_PATH = Path(__file__).parent / '../data/r0034201001001001001_0001_wfi01_f087_cat.parquet'  # noqa: E501
 TEST_S3_URI = 's3://some-bucket/r0034201001001001001_0001_wfi01_f087_cat.parquet'
 
 
@@ -38,7 +38,7 @@ class TestTableFromParquetS3:
         s3_uri = TEST_S3_URI
 
         # Act
-        result = table_from_parquet_s3(s3_uri)
+        result = parquet.table_from_s3(s3_uri)
 
         # Assert
         assert isinstance(result, Table)
@@ -55,7 +55,7 @@ class TestTableFromParquetS3:
         test_kwargs = {'include_names': ['ra', 'dec']}
 
         # Act
-        result = table_from_parquet_s3(s3_uri, **test_kwargs)
+        result = parquet.table_from_s3(s3_uri, **test_kwargs)
 
         # Assert
         assert isinstance(result, Table)

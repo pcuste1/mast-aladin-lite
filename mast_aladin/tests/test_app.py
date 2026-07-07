@@ -1,4 +1,6 @@
 from mast_aladin.app import MastAladin, gca
+from unittest.mock import Mock, patch
+import pytest
 
 
 def test_current_app(MastAladin_app):
@@ -10,3 +12,34 @@ def test_current_app(MastAladin_app):
 
     # gca should refer to the newly instantiated app:
     assert gca() == instance2
+
+
+@patch("mast_aladin.utils.parquet.table_from_s3")
+def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
+    """Test loading a parquet table."""
+    # Arrange
+    mock_table = Mock()
+    mock_table_from_s3.return_value = mock_table
+    parquet_uri = "s3://some-bucket/test.parquet"
+
+    # Act
+    MastAladin_app.add_table(parquet_uri)
+
+    # Assert
+    mock_table_from_s3.assert_called_once_with(parquet_uri)
+
+
+@patch("mast_aladin.utils.parquet.table_from_s3")
+def test_add_invalid_table(mock_table_from_s3, MastAladin_app):
+    """Test loading a parquet table."""
+    # Arrange
+    mock_table = Mock()
+    mock_table_from_s3.return_value = mock_table
+    parquet_uri = "https://some-bucket/test.parquet"
+
+    # Act/Assert
+    with pytest.raises(ValueError):
+        MastAladin_app.add_table(parquet_uri)
+
+    # Assert
+    mock_table_from_s3.assert_not_called()
