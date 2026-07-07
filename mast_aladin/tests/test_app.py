@@ -17,7 +17,6 @@ def test_current_app(MastAladin_app):
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_astropy_table(mock_table_from_s3, MastAladin_app):
-    """Test loading an astropy table."""
     # Arrange
     table = Table()
 
@@ -31,7 +30,6 @@ def test_add_astropy_table(mock_table_from_s3, MastAladin_app):
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
-    """Test loading a parquet table."""
     # Arrange
     mock_table = Table()
     mock_table_from_s3.return_value = mock_table
@@ -47,7 +45,6 @@ def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_invalid_table(mock_table_from_s3, MastAladin_app):
-    """Test loading a parquet table."""
     # Arrange
     mock_table = Mock()
     mock_table_from_s3.return_value = mock_table
