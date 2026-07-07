@@ -75,26 +75,27 @@ class MastAladin(Aladin, DelayUntilRendered):
         return table_widget
 
     def add_table(
-        self, file, **kwargs
+        self, table, **kwargs
     ):
         """Add a table to the widget.
 
         Parameters
         ----------
-        file : str
-            The file path to the table to add.
+        table : Union[astropy.table.Table or str]
+            The table to add. Valid types are astropy table and S3 uris of parquet files.
         **kwargs : dict
             Additional keyword arguments to pass to the underlying implementation.
 
         """
-        if is_valid_s3_uri(file) and file.endswith('.parquet'):
-            table = parquet.table_from_s3(file)
-        else:
-            raise ValueError(
-                f"Unsupported file provided: {file}"
-            )
+        if type(table) is str:
+            if is_valid_s3_uri(table) and table.endswith('.parquet'):
+                table = parquet.table_from_s3(table)
+            else:
+                raise ValueError(
+                    "Invalid str provided. Supported formats are S3 URIs of parquet files."
+                )
 
-        super().add_table(table, **kwargs)
+        return super().add_table(table, **kwargs)
 
     def add_asdf(
         self, asdf, **image_options
