@@ -14,7 +14,9 @@ def test_current_app(MastAladin_app):
     # gca should refer to the newly instantiated app:
     assert gca() == instance2
 
-def test_add_astropy_table(MastAladin_app):
+
+@patch("mast_aladin.utils.parquet.table_from_s3")
+def test_add_astropy_table(mock_table_from_s3, MastAladin_app):
     """Test loading an astropy table."""
     # Arrange
     table = Table()
@@ -23,6 +25,7 @@ def test_add_astropy_table(MastAladin_app):
     result = MastAladin_app.add_table(table)
 
     # Assert
+    mock_table_from_s3.assert_not_called()
     assert result["type"] == "table"
 
 
