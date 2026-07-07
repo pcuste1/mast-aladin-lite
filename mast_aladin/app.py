@@ -81,7 +81,7 @@ class MastAladin(Aladin, DelayUntilRendered):
 
         Parameters
         ----------
-        table : Union[astropy.table.Table or str]
+        table : `~astropy.table.table.QTable` or `~astropy.table.table.Table` or `str`
             The table to add. Valid types are astropy table and S3 uris of parquet files.
         **kwargs : dict
             Additional keyword arguments to pass to the underlying implementation.
@@ -92,7 +92,7 @@ class MastAladin(Aladin, DelayUntilRendered):
                 table = parquet.table_from_s3(table)
             else:
                 raise ValueError(
-                    "Invalid str provided. Supported formats are S3 URIs of parquet files."
+                    "Invalid str provided. Supported formats are S3 uris of parquet files."
                 )
 
         return super().add_table(table, **kwargs)
