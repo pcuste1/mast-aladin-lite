@@ -94,7 +94,7 @@ class MastAladin(Aladin, DelayUntilRendered):
             See ipyaladin example notebook `04_Importing_Tables`.
         **table_options : dict
             Keyword arguments. The possible values are documented in `Aladin Lite's table options
-            <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>` and 
+            <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>` and
             `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
 
         """
