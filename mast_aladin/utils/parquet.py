@@ -12,6 +12,8 @@ def table_from_s3(s3_uri, **kwargs):
         The URI to the parquet file in S3.
     **kwargs : dict
         Additional keyword arguments to pass to the astropy Table.read function.
+        The possible values are documented in `Astropy Table
+        <https://docs.astropy.org/en/stable/table/>`
 
     returns
     -------

@@ -36,10 +36,16 @@ def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
     parquet_uri = "s3://some-bucket/test.parquet"
 
     # Act
-    result = MastAladin_app.add_table(parquet_uri)
-    print(result)
+    result = MastAladin_app.add_table(
+        parquet_uri,
+        shape="circle",
+        include_names=["ra", "dec"]
+    )
     # Assert
-    mock_table_from_s3.assert_called_once_with(parquet_uri)
+    mock_table_from_s3.assert_called_once_with(
+        parquet_uri,
+        include_names=["ra", "dec"]
+    )
     assert result["type"] == "table"
 
 

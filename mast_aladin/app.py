@@ -75,27 +75,38 @@ class MastAladin(Aladin, DelayUntilRendered):
         return table_widget
 
     def add_table(
-        self, table, **kwargs
+        self, table, shape="cross", **table_options
     ):
-        """Add a table to the widget.
+        """Wrapper on the ipyaladin.widget.Aladin.add_table method that enables loading of
+        alternate table types. See ipyaladin.widget.Aladin.add_table for more details on the
+        underlying implementation.
 
         Parameters
         ----------
         table : `~astropy.table.table.QTable` or `~astropy.table.table.Table` or `str`
             The table to add. Valid types are astropy table and S3 uris of parquet files.
-        **kwargs : dict
-            Additional keyword arguments to pass to the underlying implementation.
+        shape : str | `~ipyaladin.CircleError` | `~ipyaladin.EllipseError`
+            The shape to draw for each source. It accepts the strings "square",
+            "circle", "plus", "cross", "rhomb", and "triangle" as well as the two
+            specific classes `ipyaladin.CircleError` and `ipyaladin.EllipseError`
+            that adapt the size of the drawn shapes (circles or ellipses) to error
+            columns.
+            See ipyaladin example notebook `04_Importing_Tables`.
+        **table_options : dict
+            Keyword arguments. The possible values are documented in `Aladin Lite's table options
+            <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>` and 
+            `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
 
         """
         if type(table) is str:
             if is_valid_s3_uri(table) and table.endswith('.parquet'):
-                table = parquet.table_from_s3(table)
+                table = parquet.table_from_s3(table, **table_options)
             else:
                 raise ValueError(
                     "Invalid str provided. Supported formats are S3 uris of parquet files."
                 )
 
-        return super().add_table(table, **kwargs)
+        return super().add_table(table, shape=shape, **table_options)
 
     def add_asdf(
         self, asdf, **image_options
