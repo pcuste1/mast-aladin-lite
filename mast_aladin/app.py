@@ -75,7 +75,7 @@ class MastAladin(Aladin, DelayUntilRendered):
         return table_widget
 
     def add_table(
-        self, table, shape="cross", **table_options
+        self, table, parquet_read_opts={}, shape="cross", **table_options
     ):
         """Wrapper on the ipyaladin.widget.Aladin.add_table method that enables loading of
         alternate table types. See ipyaladin.widget.Aladin.add_table for more details on the
@@ -85,6 +85,9 @@ class MastAladin(Aladin, DelayUntilRendered):
         ----------
         table : `~astropy.table.table.QTable` or `~astropy.table.table.Table` or `str`
             The table to add. Valid types are astropy table and S3 uris of parquet files.
+        parquet_read_opts : dict
+            Options for reading parquet files. The possible values are documented in
+            `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
         shape : str | `~ipyaladin.CircleError` | `~ipyaladin.EllipseError`
             The shape to draw for each source. It accepts the strings "square",
             "circle", "plus", "cross", "rhomb", and "triangle" as well as the two
@@ -94,13 +97,11 @@ class MastAladin(Aladin, DelayUntilRendered):
             See ipyaladin example notebook `04_Importing_Tables`.
         **table_options : dict
             Keyword arguments. The possible values are documented in `Aladin Lite's table options
-            <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>` and
-            `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
-
+            <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>`
         """
         if type(table) is str:
             if is_valid_s3_uri(table) and table.endswith('.parquet'):
-                table = parquet.table_from_s3(table, **table_options)
+                table = parquet.table_from_s3(table, **parquet_read_opts)
             else:
                 raise ValueError(
                     "Invalid str provided. Supported formats are S3 uris of parquet files."

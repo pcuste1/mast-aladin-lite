@@ -39,7 +39,7 @@ def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
     result = MastAladin_app.add_table(
         parquet_uri,
         shape="circle",
-        include_names=["ra", "dec"]
+        parquet_read_opts={"include_names": ["ra", "dec"]}
     )
     # Assert
     mock_table_from_s3.assert_called_once_with(
@@ -47,6 +47,7 @@ def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
         include_names=["ra", "dec"]
     )
     assert result["type"] == "table"
+    assert result['options']['shape'] == "circle"
 
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
