@@ -1,0 +1,1 @@
+from .viewer_sync_manager import ViewerSyncPlugin
