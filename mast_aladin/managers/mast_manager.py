@@ -49,3 +49,6 @@ class MastManager():
 
     def display_plugin(self, plugin_id):
         self._plugin_manager.display_plugin(plugin_id)
+
+    def display_plugins(self):
+        self._plugin_manager.display()

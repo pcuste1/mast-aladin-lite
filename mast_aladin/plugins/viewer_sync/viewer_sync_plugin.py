@@ -111,6 +111,8 @@ class ViewerSyncPlugin():
             )
         )
 
+        return container
+
     def _sync_button_on_click(self, btn):
         source = self.source_dropdown.value
         destination = self.destination_dropdown.value

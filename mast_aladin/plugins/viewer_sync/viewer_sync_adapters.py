@@ -15,13 +15,6 @@ def get_adapter(app):
         return ImvizSyncAdapter
 
     return None
-        
-
-
-# supported_adapters = {
-#     MastAladin: AladinSyncAdapter,
-#     Imviz: ImvizSyncAdapter,
-# }
 
 
 class ViewerSyncAdapter(ABC):

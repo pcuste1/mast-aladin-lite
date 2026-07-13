@@ -1,4 +1,5 @@
-from mast_aladin.adapters import ViewerSyncPlugin
+from mast_aladin.plugins import ViewerSyncPlugin
+import ipywidgets as widgets
 
 
 class PluginManager():
@@ -14,6 +15,11 @@ class PluginManager():
     def display_plugin(self, id):
         self._plugins[id].display()
 
-    def display_all_plugins(self):
-        for id in self._plugins:
-            self.display_plugin(id)
+    def display(self):
+        tab_titles = [ key for key in self._plugins]
+        children = [plugin.ui for plugin in self._plugins.values()]
+        tab = widgets.Tab(
+            children = children,
+            titles = tab_titles
+        )
+        display(tab)
