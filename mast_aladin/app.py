@@ -76,7 +76,7 @@ class MastAladin(Aladin, DelayUntilRendered):
         return table_widget
 
     def add_table(
-        self, table, parquet_read_opts={}, shape="cross", **table_options
+        self, table, include_names=None, shape="cross", **table_options
     ):
         """Wrapper on the ipyaladin.widget.Aladin.add_table method that enables loading of
         alternate table types. See ipyaladin.widget.Aladin.add_table for more details on the
@@ -86,9 +86,8 @@ class MastAladin(Aladin, DelayUntilRendered):
         ----------
         table : `~astropy.table.table.QTable` or `~astropy.table.table.Table` or `str`
             The table to add. Valid types are astropy table and S3 URIs of parquet files.
-        parquet_read_opts : dict
-            Options for reading parquet files. The possible values are documented in
-            `Astropy's Table options <https://docs.astropy.org/en/stable/table/>`
+        include_names : list[str]
+            List of column names from the remote parquet table to stream into mast-aladin.
         shape : str | `~ipyaladin.CircleError` | `~ipyaladin.EllipseError`
             The shape to draw for each source. It accepts the strings "square",
             "circle", "plus", "cross", "rhomb", and "triangle" as well as the two
@@ -102,7 +101,7 @@ class MastAladin(Aladin, DelayUntilRendered):
         """
         if isinstance(table, (os.PathLike, str)):
             if is_valid_s3_uri(table) and str(table).endswith('.parquet'):
-                table = parquet.table_from_s3(table, **parquet_read_opts)
+                table = parquet.table_from_s3(table, include_names)
             else:
                 raise ValueError(
                     f"table='{table}' is not a valid S3 URI for a parquet table."

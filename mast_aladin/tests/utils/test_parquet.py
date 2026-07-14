@@ -48,9 +48,8 @@ class TestTableFromParquetS3:
         """Test that kwargs are passed to astropy.Table.read."""
         mock_filesystem, mock_fs = mock_s3_filesystem
         s3_uri = TEST_S3_URI
-        test_kwargs = {'include_names': ['ra', 'dec']}
 
-        result = parquet.table_from_s3(s3_uri, **test_kwargs)
+        result = parquet.table_from_s3(s3_uri, include_names=["ra", "dec"])
 
         assert isinstance(result, Table)
         assert result.colnames == ['ra', 'dec']
