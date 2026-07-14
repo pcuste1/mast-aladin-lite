@@ -99,12 +99,12 @@ class MastAladin(Aladin, DelayUntilRendered):
             Keyword arguments. The possible values are documented in `Aladin Lite's table options
             <https://cds-astro.github.io/aladin-lite/global.html#CatalogOptions>`
         """
-        if type(table) is str:
-            if is_valid_s3_uri(table) and table.endswith('.parquet'):
+        if isinstance(table, (os.PathLike, str)):
+            if is_valid_s3_uri(table) and str(table).endswith('.parquet'):
                 table = parquet.table_from_s3(table, **parquet_read_opts)
             else:
                 raise ValueError(
-                    "Invalid str provided. Supported formats are S3 uris of parquet files."
+                    f"table='{table}' is not a valid S3 URI for a parquet table."
                 )
 
         return super().add_table(table, shape=shape, **table_options)
