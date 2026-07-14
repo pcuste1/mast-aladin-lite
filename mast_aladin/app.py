@@ -88,7 +88,7 @@ class MastAladin(Aladin, DelayUntilRendered):
             The table to add. Valid types are astropy table and S3 URIs of parquet files.
         parquet_read_opts : dict
             Options for reading parquet files. The possible values are documented in
-            `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
+            `Astropy's Table options <https://docs.astropy.org/en/stable/table/>`
         shape : str | `~ipyaladin.CircleError` | `~ipyaladin.EllipseError`
             The shape to draw for each source. It accepts the strings "square",
             "circle", "plus", "cross", "rhomb", and "triangle" as well as the two
