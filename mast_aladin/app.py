@@ -10,10 +10,10 @@ from regions import (
 from pathlib import Path
 from astropy.wcs import WCS
 
-from mast_aladin.utils.validators import is_valid_s3_uri
 from mast_aladin.aida import AID
 from mast_aladin.mixins import DelayUntilRendered
 import mast_aladin.utils.parquet as parquet
+from mast_aladin.utils.validators import is_valid_s3_uri
 
 import roman_datamodels.datamodels as rdd
 import os
