@@ -16,6 +16,7 @@ from mast_aladin.mixins import DelayUntilRendered
 import mast_aladin.utils.parquet as parquet
 
 import roman_datamodels.datamodels as rdd
+import os
 
 
 __all__ = [
