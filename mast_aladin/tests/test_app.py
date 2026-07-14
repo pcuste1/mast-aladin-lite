@@ -17,31 +17,34 @@ def test_current_app(MastAladin_app):
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_astropy_table(mock_table_from_s3, MastAladin_app):
-    # Arrange
+    """
+    Test that the add_table method functions as defined by ipyaladin when 
+    given an astropy table, and that parquet logic is not invoked.
+    """
     table = Table()
 
-    # Act
     result = MastAladin_app.add_table(table)
 
-    # Assert
     mock_table_from_s3.assert_not_called()
     assert result["type"] == "table"
 
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
-    # Arrange
+    """
+    Test that the add_table method correctly handles parquet URIs and invokes 
+    the super method from ipyaladin. 
+    """
     mock_table = Table()
     mock_table_from_s3.return_value = mock_table
     parquet_uri = "s3://some-bucket/test.parquet"
 
-    # Act
     result = MastAladin_app.add_table(
         parquet_uri,
         shape="circle",
         parquet_read_opts={"include_names": ["ra", "dec"]}
     )
-    # Assert
+
     mock_table_from_s3.assert_called_once_with(
         parquet_uri,
         include_names=["ra", "dec"]
@@ -52,14 +55,14 @@ def test_add_parquet_table(mock_table_from_s3, MastAladin_app):
 
 @patch("mast_aladin.utils.parquet.table_from_s3")
 def test_add_invalid_table(mock_table_from_s3, MastAladin_app):
-    # Arrange
+    """
+    Test that an invalid parquet table not from S3 raises a ValueError
+    """
     mock_table = Mock()
     mock_table_from_s3.return_value = mock_table
     parquet_uri = "https://some-bucket/test.parquet"
 
-    # Act/Assert
     with pytest.raises(ValueError):
         MastAladin_app.add_table(parquet_uri)
 
-    # Assert
     mock_table_from_s3.assert_not_called()
