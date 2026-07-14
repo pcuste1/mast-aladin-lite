@@ -84,7 +84,7 @@ class MastAladin(Aladin, DelayUntilRendered):
         Parameters
         ----------
         table : `~astropy.table.table.QTable` or `~astropy.table.table.Table` or `str`
-            The table to add. Valid types are astropy table and S3 uris of parquet files.
+            The table to add. Valid types are astropy table and S3 URIs of parquet files.
         parquet_read_opts : dict
             Options for reading parquet files. The possible values are documented in
             `Astropy's Table options<https://docs.astropy.org/en/stable/table/>`
