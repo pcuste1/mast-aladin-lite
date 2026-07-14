@@ -18,7 +18,7 @@ class TestUtils:
         # Assert
         assert result is False
 
-    def test_file_in_not_s3_uri(self):
+    def test_file_is_not_s3_uri(self):
         # Arrange
         uri = "file:///path/to/my-file.parquet"
         # Act
