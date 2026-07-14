@@ -1,7 +1,7 @@
 import ipywidgets as widgets
 from IPython.display import display
 from mast_aladin.aida import AIDA_aspects
-from .viewer_sync_adapters import get_adapter, ImvizSyncAdapter
+from .viewer_sync_adapters import get_adapter, JdavizSyncAdapter
 
 
 class ViewerSyncPlugin():
@@ -16,14 +16,14 @@ class ViewerSyncPlugin():
         self.aspects = self.sync_manager.aspects
 
         self.source_dropdown = widgets.Dropdown(
-            options = ['', *self._adapters.keys()],
+            options=['', *self._adapters.keys()],
             value='',
             description='Source:',
             disabled=False
         )
 
         self.destination_dropdown = widgets.Dropdown(
-            options = ['', *self._adapters.keys()],
+            options=['', *self._adapters.keys()],
             value='',
             description='Destination:',
             disabled=False
@@ -128,19 +128,18 @@ class ViewerSyncPlugin():
 
         # imviz does not currently support setting projection, so we disable the projection
         # syncing option when imviz is the destination
-        if isinstance(dest_adapter, ImvizSyncAdapter):
+        if isinstance(dest_adapter, JdavizSyncAdapter):
             self.projection_button.value = False
             self.projection_button.disabled = True
         else:
             self.projection_button.value = True
             self.projection_button.disabled = False
 
-
         aspects = self._get_active_aspects()
         self.sync_manager.start_real_time_sync(
-            source = source_adapter,
-            destination = dest_adapter,
-            aspects = aspects
+            source=source_adapter,
+            destination=dest_adapter,
+            aspects=aspects
         )
 
     def _clear_button_on_click(self, btn):
@@ -169,9 +168,9 @@ class ViewerSyncPlugin():
         for idx, app in self.app_manager.apps.items():
             if idx in self._adapters:
                 pass
-            
+
             adapter = get_adapter(app)
-            if adapter == None:
+            if adapter is None:
                 pass
 
             self._adapters[idx] = adapter(app)

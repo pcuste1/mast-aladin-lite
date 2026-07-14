@@ -2,6 +2,7 @@ from IPython.display import display
 from mast_aladin.app import gca, MastAladin
 import warnings
 import jdaviz
+from jdaviz.configs.deconfigged import App as JdavizApp
 
 from abc import ABC, abstractmethod
 from mast_aladin.aida import AIDA_aspects
@@ -11,8 +12,8 @@ def get_adapter(app):
     if isinstance(app, MastAladin):
         return AladinSyncAdapter
 
-    if isinstance(app, Imviz):
-        return ImvizSyncAdapter
+    if isinstance(app, JdavizApp):
+        return JdavizSyncAdapter
 
     return None
 
@@ -55,7 +56,7 @@ class AladinSyncAdapter(ViewerSyncAdapter):
         display(self.viewer)
 
 
-class ImvizSyncAdapter(ViewerSyncAdapter):
+class JdavizSyncAdapter(ViewerSyncAdapter):
     def __init__(self, viewer=None):
         if viewer:
             self.app = viewer
@@ -69,7 +70,7 @@ class ImvizSyncAdapter(ViewerSyncAdapter):
         else:
             raise ValueError(
                 "No compatible viewers available in jdaviz. You must "
-                "load data with a world coordinate system before using ImvizSyncAdapter."
+                "load data with a world coordinate system before using JdavizSyncAdapter."
             )
 
         self.viewer = self.app.viewers[glue_viewer._ref_or_id]

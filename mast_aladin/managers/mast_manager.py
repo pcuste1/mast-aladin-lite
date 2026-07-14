@@ -20,14 +20,14 @@ class MastManager():
     @property
     def apps(self):
         return self._app_manager.apps
-    
+
     @property
     def PluginManager(self):
         return self._plugin_manager
 
     @property
     def plugins(self):
-        return self._plugin_manager.plugins 
+        return self._plugin_manager.plugins
 
     def register_app(self, app, id):
         """
