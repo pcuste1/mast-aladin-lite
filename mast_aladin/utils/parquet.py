@@ -21,4 +21,4 @@ def table_from_s3(s3_uri, include_names=None):
     fsspec_filesystem = fsspec.filesystem(protocol='s3', anon=True)
     file_stream = fsspec_filesystem.open(s3_uri)
 
-    return Table.read(file_stream, include_names)
+    return Table.read(file_stream, include_names=include_names)
