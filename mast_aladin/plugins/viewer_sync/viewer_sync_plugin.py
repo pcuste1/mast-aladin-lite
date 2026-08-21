@@ -45,6 +45,8 @@ class ViewerSyncPlugin():
 
         self.sync_button.on_click(self._sync_button_on_click)
         self.clear_button.on_click(self._clear_button_on_click)
+        self.source_dropdown.observe(self._on_source_destination_change, names="value")
+        self.destination_dropdown.observe(self._on_source_destination_change, names="value")
 
         common_togglebutton_args = {
             "value": True,
@@ -126,14 +128,7 @@ class ViewerSyncPlugin():
         source_adapter = self._adapters[source]
         dest_adapter = self._adapters[destination]
 
-        # imviz does not currently support setting projection, so we disable the projection
-        # syncing option when imviz is the destination
-        if isinstance(dest_adapter, JdavizSyncAdapter):
-            self.projection_button.value = False
-            self.projection_button.disabled = True
-        else:
-            self.projection_button.value = True
-            self.projection_button.disabled = False
+        self._update_projection_button_state()
 
         aspects = self._get_active_aspects()
         self.sync_manager.start_real_time_sync(
@@ -158,6 +153,27 @@ class ViewerSyncPlugin():
     def _on_apps_changed(self, change):
         self._refresh_adapters()
         self._refresh_dropdowns()
+        self._update_projection_button_state()
+
+    def _on_source_destination_change(self, change):
+        self._update_projection_button_state()
+
+    def _update_projection_button_state(self):
+        """
+        TODO: Remove this method once projection is supported by jdaviz 
+        https://github.com/spacetelescope/jdaviz/pull/4076
+        """
+        source_adapter = self._adapters.get(self.source_dropdown.value)
+        destination_adapter = self._adapters.get(self.destination_dropdown.value)
+
+        disable_projection = any([
+            isinstance(source_adapter, JdavizSyncAdapter),
+            isinstance(destination_adapter, JdavizSyncAdapter)
+        ])
+
+        self.projection_button.disabled = disable_projection
+        if disable_projection:
+            self.projection_button.value = False
 
     def _refresh_dropdowns(self):
         new_options = ['', *self._adapters.keys()]
