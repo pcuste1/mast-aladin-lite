@@ -160,7 +160,7 @@ class ViewerSyncPlugin():
 
     def _update_projection_button_state(self):
         """
-        TODO: Remove this method once projection is supported by jdaviz 
+        TODO: Remove this method once projection is supported by jdaviz
         https://github.com/spacetelescope/jdaviz/pull/4076
         """
         source_adapter = self._adapters.get(self.source_dropdown.value)
