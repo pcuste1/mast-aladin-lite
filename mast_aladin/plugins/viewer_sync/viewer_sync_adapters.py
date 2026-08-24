@@ -10,7 +10,7 @@ from mast_aladin.aida import AIDA_aspects
 
 def get_adapter(app):
     if isinstance(app, MastAladin):
-        return AladinSyncAdapter
+        return MastAladinSyncAdapter
 
     if isinstance(app, JdavizApp):
         return JdavizSyncAdapter
@@ -41,7 +41,7 @@ class ViewerSyncAdapter(ABC):
         raise NotImplementedError
 
 
-class AladinSyncAdapter(ViewerSyncAdapter):
+class MastAladinSyncAdapter(ViewerSyncAdapter):
     def __init__(self, viewer=None):
         self.viewer = viewer if viewer else gca()
         self.aid = self.viewer.aid
@@ -58,10 +58,7 @@ class AladinSyncAdapter(ViewerSyncAdapter):
 
 class JdavizSyncAdapter(ViewerSyncAdapter):
     def __init__(self, viewer=None):
-        if viewer:
-            self.app = viewer
-        else:
-            self.app = jdaviz.gca()
+        self.app = viewer if viewer else jdaviz.gca()
 
         # Get the first available image viewer
         image_viewers = self.app._app.get_viewers_of_cls('ImvizImageView')
