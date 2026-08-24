@@ -196,17 +196,10 @@ class ViewerSyncPlugin():
 
 
 class ViewerSyncManager():
-    ASPECTS = (
-        AIDA_aspects.CENTER,
-        AIDA_aspects.FOV,
-        AIDA_aspects.ROTATION,
-        AIDA_aspects.PROJECTION
-    )
-
     def __init__(self):
         self.source = None
         self.destination = None
-        self.aspects = self.ASPECTS
+        self.aspects = AIDA_aspects
 
     def _callback(self, caller):
         self.destination.sync_to(self.source, self.aspects)
