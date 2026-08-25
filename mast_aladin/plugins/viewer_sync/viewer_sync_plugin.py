@@ -180,7 +180,7 @@ class ViewerSyncPlugin():
             try:
                 # updating projection causes a callback to be triggered to the
                 # _sync_button_on_click method which can cause and error if source
-                # and destination are not set. So we pause updates while we update
+                # and destination are not set, so we pause updates while we update
                 # the projection button value.
                 self._pause_updates = True
                 self.projection_button.value = False
