@@ -14,6 +14,7 @@ class ViewerSyncPlugin():
 
         self.sync_manager = ViewerSyncManager()
         self.aspects = self.sync_manager.aspects
+        self._pause_updates = False
 
         self.source_dropdown = widgets.Dropdown(
             options=['', *self._adapters.keys()],
@@ -116,6 +117,9 @@ class ViewerSyncPlugin():
         return container
 
     def _sync_button_on_click(self, btn):
+        if self._pause_updates:
+            return
+
         source = self.source_dropdown.value
         destination = self.destination_dropdown.value
 
@@ -172,8 +176,16 @@ class ViewerSyncPlugin():
         ])
 
         self.projection_button.disabled = disable_projection
-        if disable_projection:
-            self.projection_button.value = False
+        if disable_projection and self.projection_button.value:
+            try:
+                # updating projection causes a callback to be triggered to the
+                # _sync_button_on_click method which can cause and error if source
+                # and destination are not set. So we pause updates while we update
+                # the projection button value.
+                self._pause_updates = True
+                self.projection_button.value = False
+            finally:
+                self._pause_updates = False
 
     def _refresh_dropdowns(self):
         new_options = ['', *self._adapters.keys()]
@@ -199,7 +211,12 @@ class ViewerSyncManager():
     def __init__(self):
         self.source = None
         self.destination = None
-        self.aspects = AIDA_aspects
+        self.aspects = (
+            AIDA_aspects.CENTER,
+            AIDA_aspects.FOV,
+            AIDA_aspects.ROTATION,
+            AIDA_aspects.PROJECTION
+        )
 
     def _callback(self, caller):
         self.destination.sync_to(self.source, self.aspects)
