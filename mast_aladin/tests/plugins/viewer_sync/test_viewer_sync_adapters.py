@@ -42,9 +42,6 @@ class TestSyncAdapters(BaseImviz):
         imviz_sync_adapter = ImvizSyncAdapter()
 
         # assert starting coordinate is approximately on Cartwheel Galaxy
-        # TODO (2026-07-22): the jdaviz glue viewer attribute `aid`
-        # will be removed in a PR coming soon, the line below will
-        # need to be updated.
         center = imviz_sync_adapter.aid.get_viewport(sky_or_pixel="sky")[AIDA_aspects.CENTER]
         assert center.ra.deg == approx(9.425937637864708, rel=1e-8)
         assert center.dec.deg == approx(-33.71515927986813, rel=1e-8)
