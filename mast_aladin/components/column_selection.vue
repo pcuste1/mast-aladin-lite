@@ -143,4 +143,19 @@
 #column_selection .v-autocomplete--chips .v-autocomplete__selection {
   margin: 4px;
 }
+
+#column_selection .v-field--variant-outlined .v-field__outline__start,
+#column_selection .v-field--variant-outlined .v-field__outline__notch::after,
+#column_selection .v-field--variant-outlined .v-field__outline__end {
+  /* v-autocomplete outline border color */
+  color: light-dark(#013b4d, #b4dbe9);
+  opacity: 1;
+}
+
+#column_selection .v-field--variant-outlined:not(.v-field--active) .v-field__outline__notch::before {
+  /* only force full opacity while the label is resting; leave it alone when
+     active so vuetify can still cut the notch gap for the floating label */
+  color: light-dark(#013b4d, #b4dbe9);
+  opacity: 1;
+}
 </style>

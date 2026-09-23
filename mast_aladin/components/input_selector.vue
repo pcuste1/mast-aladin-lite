@@ -61,4 +61,23 @@
 #input_selector .mdi-close-box:focus {
   color: #A75000;
 }
+  
+#input_selector .v-autocomplete {
+  border-color: light-dark(black, white);
+}
+
+#input_selector .v-field--variant-outlined .v-field__outline__start,
+#input_selector .v-field--variant-outlined .v-field__outline__notch::after,
+#input_selector .v-field--variant-outlined .v-field__outline__end {
+  /* v-autocomplete outline border color */
+  color: light-dark(#013b4d, #b4dbe9);
+  opacity: 1;
+}
+
+#input_selector .v-field--variant-outlined:not(.v-field--active) .v-field__outline__notch::before {
+  /* only force full opacity while the label is resting; leave it alone when
+     active so vuetify can still cut the notch gap for the floating label */
+  color: light-dark(#013b4d, #b4dbe9);
+  opacity: 1;
+}
 </style>
