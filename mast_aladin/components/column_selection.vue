@@ -6,6 +6,7 @@
     <v-row
       align="end"
       no-gutters
+      class="header-row"
     >
       <v-col cols="6">
         <v-label>{{ title }}</v-label>
@@ -20,6 +21,7 @@
           size="small"
           aria-label="Select all columns"
           @click="select_all"
+          rounded="0"
         >
           <v-icon size="small">mdi-checkbox-multiple-marked</v-icon>
         </v-btn>
@@ -29,6 +31,7 @@
           size="small"
           aria-label="Select no columns"
           @click="select_none"
+          rounded="0"
         >
           <v-icon size="small">mdi-checkbox-multiple-blank-outline</v-icon>
         </v-btn>
@@ -38,6 +41,7 @@
       <v-col cols="12">
         <v-autocomplete
           v-model="selected_columns"
+          class="column-autocomplete"
           :items="column_items"
           item-title="title"
           item-value="value"
@@ -48,7 +52,7 @@
           variant="outlined"
           hide-details
           :menu-props="{ attach: '#column_selection' }"
-          rounded="0" 
+          rounded="0"
         >
           <template #chip="{ item, index, props }">
             <v-chip

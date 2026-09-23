@@ -45,6 +45,7 @@ class ViewerSyncPlugin():
         return v.Container(
             children=[
                 v.Row(
+                    align="end",
                     children=[
                         v.Col(children=[
                             self.source_dropdown,
@@ -58,7 +59,7 @@ class ViewerSyncPlugin():
                 self.sync_switch,
             ],
             class_="flex-column",
-            style_="display: flex; width: fit-content; padding: 20px;",
+            style_="display: flex; width: fit-content;",
         )
 
     def _source_on_change(self, change):

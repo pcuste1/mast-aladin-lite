@@ -24,6 +24,7 @@
               size="small"
               aria-label="Select all"
               @click="select_all"
+              rounded="0"
             >
               <v-icon size="small">mdi-checkbox-multiple-marked</v-icon>
             </v-btn>
@@ -33,6 +34,7 @@
               size="small"
               aria-label="Select none"
               @click="select_none"
+              rounded="0"
             >
               <v-icon size="small">mdi-checkbox-multiple-blank-outline</v-icon>
             </v-btn>
@@ -40,7 +42,7 @@
         </v-row>
         <v-sheet
           border
-          :class="{ 'transparent-background': true, 'pl-3': true}"
+          class="transparent-background pl-3 border-opacity-100"
         >
           <span>
               <v-label>{{ label }} =</v-label>
@@ -64,7 +66,7 @@
               </v-btn>
               <v-divider
                   v-if="index < options.length - 1"
-                  class="option-divider my-3 mx-0"
+                  class="option-divider border-opacity-100 my-3 mx-0"
                   vertical
                 >
                 </v-divider>
@@ -96,17 +98,17 @@
   font-weight: 900;
 }
 
-#checkbox_selector .v-sheet.v-sheet--border {
-  border-color: light-dark(black, white);
+#checkbox_selector .border {
+  color: light-dark(#013b4d, #b4dbe9);
 }
 
 #checkbox_selector .option-divider {
-  border-color: light-dark(black, white);
+  color: light-dark(#013b4d, #b4dbe9);
 }
 
 #checkbox_selector .option-btn {
   background-color: transparent;
-  color: light-dark(black, white);
+  color: light-dark(#013b4d, #b4dbe9);
   font-weight: 900;
   letter-spacing: 1.25px;
 }
@@ -121,5 +123,4 @@
 { 
   background-color: light-dark(#FF9D42, #A75000);
 }
-
 </style>
