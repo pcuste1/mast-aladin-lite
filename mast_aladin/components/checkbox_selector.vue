@@ -50,6 +50,7 @@
             v-model="selected"
             multiple
             variant="flat"
+            rounded="0"
           >
             <template v-for="(option, index) in options" :key="option">
               <v-btn
