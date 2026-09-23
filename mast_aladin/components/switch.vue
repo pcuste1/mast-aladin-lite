@@ -6,8 +6,7 @@
       false-value="Sync"
       true-value="Desync"
       hide-details
-      color="success"
-      inset
+      color="#FF9D42"
       :disabled="disabled"
     ></v-switch>
   </div>

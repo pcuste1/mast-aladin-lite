@@ -39,18 +39,32 @@
         <v-autocomplete
           v-model="selected_columns"
           :items="column_items"
-          :disabled="disabled"
           item-title="title"
           item-value="value"
           :label="label"
           multiple
           chips
           closable-chips
-          :chip-props="{ label: true, closeIcon: 'mdi-close-box' }"
-          clearable
           variant="outlined"
           hide-details
-        />
+          :menu-props="{ attach: '#column_selection' }"
+          rounded="0" 
+        >
+          <template #chip="{ item, index, props }">
+            <v-chip
+              v-bind="props"
+              :model-value="item.selected"
+              :data-column-name="item.raw.column_name"
+              label
+              variant="elevated"
+              closable
+              close-icon="mdi-close-box"
+              @click="item.select"
+              @click:close="remove(item.raw)"
+              rounded="0" 
+            />
+          </template>
+        </v-autocomplete>
       </v-col>
     </v-row>
   </v-container>
@@ -82,11 +96,47 @@
 #column_selection .select-all-btn:hover,
 #column_selection .select-none-btn:hover,
 #column_selection .option-btn:hover,
-#column_selection .v-chip:hover,
 #column_selection .v-autocomplete .v-input__icon--clear:hover,
-#column_selection .v-autocomplete .v-input__slot:hover
-#column_selection .v-list-item:hover {
+#column_selection .v-autocomplete .v-input__slot:hover,
+#column_selection .v-menu__content .v-list-item:hover {
 
-  background-color: #FF9D42 !important;
+  background-color: #FF9D42;
+}
+
+#column_selection .v-combobox--chips .v-combobox__selection,
+#column_selection .v-autocomplete--chips .v-autocomplete__selection {
+  margin: 4px;
+}
+
+#column_selection .v-list .v-list-item--link:not(.v-list-item--prepend):hover,
+#column_selection .v-list .v-list-item--link:not(.v-list-item--prepend):focus,
+#column_selection .v-list .v-list-item--active:not(.v-list-item--prepend):focus
+{
+  /* List item hover */
+  background-color: light-dark(#FF9D42, #A75000);
+}
+
+#column_selection .v-list .v-list-item--active:not(.v-list-item--prepend) {
+  /* List item, active item */
+  background-color: light-dark(#C6F0FD, #00617E);
+  opacity: 1;
+}
+
+#column_selection .v-icon--clickable:not(.v-data-table-header__sort-icon):hover,
+#column_selection .v-icon--clickable:not(.v-data-table-header__sort-icon):focus {
+  color: light-dark(#FF9D42, #A75000);
+}
+
+#column_selection .mdi-close-box:hover,
+#column_selection .mdi-close-box:focus {
+  color: #A75000;
+}
+
+#column_selection .v-chip--selected, .v-chip--active {
+  box-shadow: none;
+}
+
+#column_selection .v-autocomplete--chips .v-autocomplete__selection {
+  margin: 4px;
 }
 </style>

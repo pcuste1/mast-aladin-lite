@@ -83,7 +83,7 @@
   color-scheme: light dark;
 }
 
-#checkbox_selector .select-all-btn
+#checkbox_selector .select-all-btn,
 #checkbox_selector .select-none-btn {
   background-color: #013b4d;
   color: white;
@@ -118,7 +118,7 @@
 #checkbox_selector .select-none-btn:hover,
 #checkbox_selector .option-btn:hover 
 { 
-  background-color: #FF9D42;
+  background-color: light-dark(#FF9D42, #A75000);
 }
 
 </style>

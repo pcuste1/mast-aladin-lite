@@ -52,12 +52,13 @@ class ViewerSyncPlugin():
                         v.Col(children=[
                             self.destination_dropdown,
                         ]),
-                    ]
+                    ],
                 ),
                 self.aspects_selector,
-                self.sync_switch
+                self.sync_switch,
             ],
-            style_="width: 100%; padding: 20px;",
+            class_="flex-column",
+            style_="display: flex; width: fit-content; padding: 20px;",
         )
 
     def _source_on_change(self, change):
