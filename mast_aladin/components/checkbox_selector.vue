@@ -42,18 +42,21 @@
         </v-row>
         <v-sheet
           border
-          class="transparent-background pl-3 border-opacity-100"
+          class="transparent-background border-opacity-100"
         >
-          <span>
-              <v-label>{{ label }} =</v-label>
-          </span>
-          <span class="mr-3" />
           <v-btn-toggle
             v-model="selected"
             multiple
             variant="flat"
             rounded="0"
           >
+            <v-btn 
+              disabled
+              class="label-btn"
+              variant="text"
+            >
+              {{ label }} =
+            </v-btn>
             <template v-for="(option, index) in options" :key="option">
               <v-btn
                 :value="option"
@@ -91,6 +94,13 @@
   background-color: #013b4d;
   color: white;
   font-weight: 900;
+}
+
+#checkbox_selector .label-btn {
+  color: light-dark(#013b4d, #b4dbe9);
+  opacity: .6;
+  font-weight: 900;
+  letter-spacing: 1.25px;
 }
 
 #checkbox_selector .v-label {
