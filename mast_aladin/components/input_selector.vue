@@ -23,6 +23,7 @@
           hide-details
           :menu-props="{ attach: '#input_selector' }"
           rounded="0" 
+          density="compact"
         />
       </v-col>
     </v-row>

@@ -49,6 +49,7 @@
             multiple
             variant="flat"
             rounded="0"
+            density="compact"
           >
             <v-btn 
               disabled

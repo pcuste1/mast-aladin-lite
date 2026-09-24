@@ -53,6 +53,7 @@
           hide-details
           :menu-props="{ attach: '#column_selection' }"
           rounded="0"
+          density="compact"
         >
           <template #chip="{ item, index, props }">
             <v-chip
